@@ -2,7 +2,7 @@ import time
 
 from afem.config import Settings
 from afem.geometry import *
-from afem.graphics import Viewer
+# from afem.graphics import Viewer
 from afem.oml import Body
 from afem.structure import *
 from afem.topology import *
@@ -289,9 +289,12 @@ def build_wingbox(wing, params):
     else:
         print('Meshing complete in ', time.time() - mesh_start, ' seconds.')
 
-    gui.add(the_mesh)
-    gui.start()
-    gui.clear()
+    # Writing NASTRAN .bdf
+    the_mesh.export_nastran('wingbox_AFEM.bdf')
+
+    #gui.add(the_mesh)
+    #gui.start()
+    #gui.clear()
 
     # Uncomment this to export STEP file.
     # from afem.io import StepExport
@@ -310,14 +313,14 @@ if __name__ == '__main__':
     bodies = Body.load_bodies(fname)
     wing_in = bodies['Wing']
 
-    gui = Viewer()
+    #gui = Viewer()
     # Build wing box
     inputs = {'build aux': True,
               'mid spar rib': 10,
               'aux rib list': ['2', '5', '8']}
     group = build_wingbox(wing_in, inputs)
 
-    gui.add(group)
-    gui.start()
+    #gui.add(group)
+    #gui.start()
 
     print('Complete in ', time.time() - start, ' seconds.')
