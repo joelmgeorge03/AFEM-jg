@@ -363,7 +363,9 @@ if __name__ == '__main__':
     Settings.log_to_console()
 
     # Import OpenVSP model
-    fname = r'..\models\supersonic.stp'
+    import os
+    fname = os.path.abspath('../models/supersonic.stp')
+    print(fname)
     vsp_import = ImportVSP(fname)
 
     # A few notes about importing an OpenVSP STEP model:
